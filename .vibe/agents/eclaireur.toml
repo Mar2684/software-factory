@@ -1,0 +1,5 @@
+agent_type = "subagent"
+description = "Éclaireur de la factory : reconnaissance autonome sur UNE feature inconnue, preuves exécutées (10 essais max), rend une fiche à promesse d'interface."
+system_prompt_id = "eclaireur"
+active_model = "mistral-large-4"
+enabled_tools = ["bash", "read_file"]

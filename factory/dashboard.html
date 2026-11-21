@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Factory Board</title>
+<style>
+  body { font-family: system-ui, sans-serif; margin: 24px; background: #f6f7f9; color: #222; }
+  h1 { font-size: 20px; }
+  .cols { display: flex; gap: 12px; align-items: flex-start; }
+  .col { background: #e9ecf1; border-radius: 8px; padding: 8px; width: 230px; min-height: 120px; }
+  .col h2 { font-size: 12px; text-transform: uppercase; letter-spacing: .05em; margin: 4px 6px; color: #667; }
+  .card { background: #fff; border-radius: 6px; padding: 8px 10px; margin: 6px 0; font-size: 13px;
+          box-shadow: 0 1px 2px rgba(0,0,0,.12); cursor: pointer; border-top: 3px solid #48c; }
+  .card.needs { border-top-color: #e6a23c; background: #fff8ec; font-weight: 600; }
+  .card.escalated { border-top-color: #d33; background: #fdeaea; }
+  .card.merged { border-top-color: #3a3; color: #567; }
+  .chips { margin-top: 6px; }
+  .chip { display: inline-block; font-size: 10px; padding: 1px 6px; border-radius: 8px; margin-right: 3px;
+          background: #dde3ea; color: #556; }
+  .chip.PASS { background: #d4efd4; color: #266; }
+  .chip.CHANGES { background: #fadcdc; color: #933; }
+  .round { font-size: 10px; color: #889; }
+  .count { font-size: 10px; color: #889; margin: 4px 6px; }
+  #detail { margin-top: 16px; background: #fff; border-radius: 8px; padding: 14px; white-space: pre-wrap;
+            font-size: 12px; max-height: 300px; overflow: auto; display: none; }
+  #tabs { margin-bottom: 12px; }
+  .tab { font-size: 12px; padding: 4px 12px; margin-right: 6px; border: 1px solid #ccd; border-radius: 14px;
+         background: #fff; color: #556; cursor: pointer; }
+  .tab.active { background: #48c; color: #fff; border-color: #48c; }
+  #journal-table { background: #fff; border-radius: 8px; border-collapse: collapse; font-size: 12px; min-width: 90%; }
+  #journal-table th { text-align: left; font-size: 10px; text-transform: uppercase; color: #889;
+                      padding: 6px 10px; border-bottom: 1px solid #dde; }
+  #journal-table td { padding: 5px 10px; border-bottom: 1px solid #eef; vertical-align: top; }
+  #journal-table td.note { color: #556; max-width: 520px; }
+  .v-PASS { color: #266; } .v-CHANGES, .v-FAIL, .v-ESCALATE { color: #933; } .v-CONTINUE { color: #962; }
+  #view-journal { overflow-x: auto; }
+</style>
+</head>
+<body>
+<h1>🏭 Factory Board</h1>
+<div id="tabs">
+  <button id="tab-board" class="tab active" onclick="setView('board')">Board</button>
+  <button id="tab-journal" class="tab" onclick="setView('journal')">Journal</button>
+</div>
+<div id="view-board">
+  <div class="cols" id="cols"></div>
+  <pre id="detail"></pre>
+</div>
+<div id="view-journal" style="display:none">
+  <p id="journal-count" class="count"></p>
+  <table id="journal-table">
+    <thead><tr><th>heure</th><th>job</th><th>station</th><th>round</th><th>verdict</th><th>note</th></tr></thead>
+    <tbody></tbody>
+  </table>
+</div>
+<script>
+const STAGES = ["classe","eclaireurs","spec","build","ci","review","needs-human","escalated","merged"];
+const KNOWN  = new Set(STAGES);       // v2 : toute stage inconnue -> colonne "autre", jamais de disparition
+let LAST = null;                      // v2 : on garde le dernier board valide affiché
+async function render(board) {
+  if (board && Array.isArray(board.jobs)) LAST = board;   // v2 : jamais régresser vers un board vide/partial
+  if (!LAST) return;
+  const cols = {}; STAGES.forEach(s => cols[s] = []); cols["autre"] = [];
+  LAST.jobs.forEach(j => (KNOWN.has(j.stage) ? cols[j.stage] : cols["autre"]).push(j));
+  const el = document.getElementById("cols");
+  el.innerHTML = "";
+  for (const s of STAGES.concat(["autre"])) {
+    const list = cols[s]; if (s === "autre" && !list.length) continue;
+    const col = document.createElement("div"); col.className = "col";
+    const h = document.createElement("h2"); h.textContent = s; col.appendChild(h);
+    const n = document.createElement("div"); n.className = "count"; n.textContent = list.length + " job(s)"; col.appendChild(n);
+    list.forEach(j => {
+      const c = document.createElement("div");
+      c.className = "card " + (j.stage === "needs-human" ? "needs" : j.stage);
+      c.innerHTML = "<b>" + j.id + "</b><br><span class='round'>round " + (j.round || 0) +
+                    " · " + (j.forme || "") + (j.updated ? " · " + j.updated.slice(11, 16) : "") + "</span>";
+      const chips = document.createElement("div"); chips.className = "chips";
+      Object.entries(j.reviews || {}).forEach(([k, v]) => {
+        const ch = document.createElement("span"); ch.className = "chip " + v; ch.textContent = k + ":" + v;
+        chips.appendChild(ch);
+      });
+      c.appendChild(chips);
+      c.onclick = async () => {
+        const d = document.getElementById("detail"); d.style.display = "block";
+        d.textContent = "jobs/" + j.id + " — " + j.stage + " (round " + j.round + ")\n\n";
+        for (const f of ["spec.md", "decision.md", "handover.md"]) {
+          try { const t = await (await fetch("jobs/" + j.id + "/" + f, { cache: "no-store" })).text();
+                d.textContent += "── " + f + " ──\n" + t + "\n\n"; } catch (e) { /* fichier absent = OK */ }
+        }
+      };
+      col.appendChild(c);
+    });
+    el.appendChild(col);
+  }
+}
+function setView(v) {
+  document.getElementById("view-board").style.display    = (v === "board")    ? "block"  : "none";
+  document.getElementById("view-journal").style.display = (v === "journal") ? "block"  : "none";
+  document.getElementById("tab-board").className    = "tab" + (v === "board"    ? " active" : "");
+  document.getElementById("tab-journal").className = "tab" + (v === "journal" ? " active" : "");
+}
+let LASTJ = [];                        // v1.1 : dernier journal valide (un fetch raté ne vide pas l'écran)
+async function renderJournal() {
+  let rows = null;
+  try {
+    const t = await (await fetch("journal.jsonl", { cache: "no-store" })).text();
+    rows = t.trim().split(/\r?\n/).filter(Boolean).map(l => { try { return JSON.parse(l); } catch (e) { return null; } }).filter(Boolean);
+  } catch (e) { /* réécriture en cours : on garde LASTJ */ }
+  if (rows && rows.length) LASTJ = rows;
+  const tb = document.querySelector("#journal-table tbody");
+  tb.innerHTML = "";
+  const counts = {};
+  LASTJ.forEach(j => { counts[j.station] = (counts[j.station] || 0) + 1; });
+  document.getElementById("journal-count").textContent =
+    LASTJ.length + " ligne(s) — " + Object.entries(counts).map(([k, v]) => k + ":" + v).join(" · ");
+  LASTJ.slice().reverse().forEach(j => {
+    const tr = document.createElement("tr");
+    const td = (txt) => { const c = document.createElement("td"); c.textContent = txt; return c; };
+    tr.appendChild(td((j.ts || "").slice(11, 19)));
+    tr.appendChild(td(j.job || ""));
+    tr.appendChild(td(j.station || ""));
+    tr.appendChild(td(String(j.round ?? "")));
+    const vd = td(j.verdict || ""); vd.className = "v-" + (j.verdict || ""); tr.appendChild(vd);
+    const nd = td(j.note || ""); nd.className = "note"; tr.appendChild(nd);
+    tb.appendChild(tr);
+  });
+}
+async function poll() {
+  let board = null;
+  try { board = await (await fetch("board.json", { cache: "no-store" })).json(); }
+  catch (e) { /* board en réécriture : on garde LAST à l'écran, on réessaiera */ }
+  render(board);
+  await renderJournal();
+}
+poll(); setInterval(poll, 2000);
+</script>
+</body>
+</html>

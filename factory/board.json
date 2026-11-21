@@ -1,0 +1,27 @@
+{
+  "version": "2",
+  "jobs": [
+    {
+      "id": "001-pong-tkinter",
+      "forme": "script-python v1",
+      "stage": "merged",
+      "round": 1,
+      "reviews": {
+        "cdc": "PASS",
+        "gout": "PASS"
+      },
+      "updated": "2026-11-21T11:03:25Z"
+    },
+    {
+      "id": "002-carnet-depenses-cli",
+      "forme": "script-python v1",
+      "stage": "merged",
+      "round": 1,
+      "reviews": {
+        "cdc": "PASS",
+        "gout": "PASS"
+      },
+      "updated": "2026-11-21T11:03:25Z"
+    }
+  ]
+}

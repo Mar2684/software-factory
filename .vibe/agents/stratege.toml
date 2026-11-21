@@ -1,0 +1,5 @@
+agent_type = "subagent"
+description = "Stratège de la factory : rédige la spec.md d'un job (mono-chantier, niveau code sans écrire le code) à partir de la feature, de la forme et des fiches d'éclaireurs."
+system_prompt_id = "stratege"
+active_model = "mistral-large-4"
+enabled_tools = ["read_file", "bash"]

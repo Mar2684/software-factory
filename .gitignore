@@ -1,0 +1,6 @@
+__pycache__/
+node_modules/
+dist/
+.factory/
+factory/board.json.tmp
+workspace/

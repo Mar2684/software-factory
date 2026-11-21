@@ -1,0 +1,5 @@
+agent_type = "subagent"
+description = "Coder de la factory : écrit le code + les tests d'un job sur la branche factory/<id>, exécute la commande CI, commit par tour. Seul agent autorisé à écrire du code."
+system_prompt_id = "coder"
+active_model = "mistral-large-4"
+enabled_tools = ["read_file", "write_file", "edit", "bash"]
