@@ -5,11 +5,18 @@ Une factory installable : tu clones ce repo dans un dossier projet, tu ouvres un
 ## Installation
 
 - **Nouveau projet** :
-  `git clone https://github.com/Mar2684/software-factory.git MonProjet && cd MonProjet && .\install.ps1 -New`
+  `git clone https://github.com/Mar2684/software-factory.git MonProjet && cd MonProjet && .\install.ps1 -Mode New`
 - **Projet existant** (l'usine vient en renfort — le repo du projet reste le tien) :
   cloner ce pattern à côté, puis depuis le dossier du projet :
-  `..\software-factory\install.ps1 -Existing`
+  `..\software-factory\install.ps1 -Mode Existing`
 - Ouvre une session Vibe Desktop (onglet Code) dans le dossier du projet. Le dossier est proposé comme trusted : accepte. `/skills` doit lister `factory`.
+- Si PowerShell bloque l'exécution des scripts :
+  `powershell -ExecutionPolicy Bypass -File .\install.ps1 -Mode New`
+
+## Le contrat des deux README
+
+- **Racine (`README.md`)** : la doc **du LOGICIEL**. Créée à l'installation, complétée par l'usine à chaque merge (`/factory approve` y ajoute la section du job).
+- **`factory/README.md`** : la doc **de L'USINE** (ce fichier-ci, déplacé à l'installation). La boucle de production ne la touche JAMAIS : les docs de l'usine et du logiciel ne se mélangent pas.
 
 ## Premier pas selon le cas
 
@@ -23,13 +30,13 @@ Une factory installable : tu clones ce repo dans un dossier projet, tu ouvres un
 | `/factory <feature>` | Nouveau job : classe la forme, éclaire l'inconnu, spec, code, CI, revues → needs-human |
 | `/factory next` | Lance le premier élément non coché du backlog |
 | `/factory context` | (Re)dresse la carte du logiciel pour les agents (fichiers factory/contexte/) |
-| `/factory approve <job-id>` | Merge la feature dans main (toi seul), CI post-merge, met à jour README et contexte |
+| `/factory approve <job-id>` | Nettoie le chantier, merge la feature dans main (toi seul), CI post-merge, met à jour README (logiciel) et contexte |
 | `/factory rework <job-id> <note>` | Renvoie un job needs-human au coder avec ta note |
 | `/factory journal` | Rapport des stations et rounds depuis le journal |
 
 ## La boucle en une image
 
-feature → classe la FORME → éclaireurs (briques inconnues, fiches à preuves) → spec niveau-code → UN coder (branche factory/<id>) → CI capteur (0 token) → revues parallèles (CDC + dégustation exécutée) → Vigie si ça stagne → `needs-human` → **merge par toi**.
+feature → classe la FORME → éclaireurs (briques inconnues, fiches à preuves) → spec niveau-code → UN coder (branche factory/&lt;id&gt;) → CI capteur (0 token) → revues parallèles (CDC + dégustation exécutée) → Vigie si ça stagne → `needs-human` + nettoyage de chantier → **merge par toi**.
 
 ## Suivre en direct
 
@@ -41,10 +48,11 @@ feature → classe la FORME → éclaireurs (briques inconnues, fiches à preuve
 - `factory/formes/menu.md` : le menu des FORMES (fermé) — ce que l'usine SAIT produire.
 - `factory/contexte/` : la carte du logiciel (projet, modules, tests, conventions, historique des jobs).
 - `factory/fiches/` : les fiches d'outils à PREUVES EXÉCUTÉES, validées par les éclaireurs.
+- `factory/fiches/essais/` : les chantiers d'éclaireurs (scratch, node_modules, builds d'essai) — **gitignorés**, jamais commités, détruits au nettoyage de chantier.
 - `factory/board.json` + `factory/journal.jsonl` : l'état et le journal.
 - `factory/jobs/<id>/` : tout ce qui concerne un job, du spec au handover.
 
-## Doctrine en 6 lignes
+## Doctrine en 7 lignes
 
 1. Pas de génération libre de structure : une feature = une forme du menu, sinon escalade.
 2. Mono-chantier : jamais de code parallèle (la couture casse l'assemblage).
@@ -52,3 +60,4 @@ feature → classe la FORME → éclaireurs (briques inconnues, fiches à preuve
 4. La connaissance vit dans des fichiers (spec, fiche, contexte), pas dans les conversations.
 5. Aucun agent ne voit de secrets ; aucun merge automatique.
 6. L'inconnu s'éclaire avec des preuves exécutées, jamais avec de la prose.
+7. Trois périmètres étanches : le logiciel à la racine, l'usine dans `.vibe/` et `factory/`, les essais gitignorés dans `factory/fiches/essais/` ; le chantier est nettoyé avant chaque merge, et un README par périmètre.
