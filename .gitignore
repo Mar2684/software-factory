@@ -4,3 +4,4 @@ dist/
 .factory/
 factory/board.json.tmp
 workspace/
+factory/fiches/essais/
