@@ -5,10 +5,10 @@ Une factory installable : tu clones ce repo dans un dossier projet, tu ouvres un
 ## Installation
 
 - **Nouveau projet** :
-  `git clone <url> MonProjet && cd MonProjet && .\install.ps1 -New`
+  `git clone https://github.com/Mar2684/software-factory.git MonProjet && cd MonProjet && .\install.ps1 -New`
 - **Projet existant** (l'usine vient en renfort — le repo du projet reste le tien) :
   cloner ce pattern à côté, puis depuis le dossier du projet :
-  `..\factory-pattern\install.ps1 -Existing`
+  `..\software-factory\install.ps1 -Existing`
 - Ouvre une session Vibe Desktop (onglet Code) dans le dossier du projet. Le dossier est proposé comme trusted : accepte. `/skills` doit lister `factory`.
 
 ## Premier pas selon le cas

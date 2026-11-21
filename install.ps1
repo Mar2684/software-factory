@@ -1,6 +1,6 @@
 # install.ps1 — installe la factory dans le dossier courant (depuis le clone du pattern).
 # Usage :
-#   Nouveau projet :  git clone <url-factory-pattern> MonProjet ; cd MonProjet ; .\install.ps1 -New
+#   Nouveau projet :  git clone https://github.com/Mar2684/software-factory.git MonProjet ; cd MonProjet ; .\install.ps1 -New
 #   Projet existant : dans le dossier du projet : .\install.ps1 -Existing
 param([Parameter(Mandatory=$true)][ValidateSet("New","Existing")][string]$Mode)
 
