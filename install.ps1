@@ -25,6 +25,8 @@ if ($Mode -eq "New") {
   if (-not (Test-Path ".gitignore")) { New-Item ".gitignore" | Out-Null }
   Add-Content ".gitignore" "__pycache__/`nnode_modules/`ndist/`n.factory/`nfactory/board.json.tmp`nworkspace/`nfactory/fiches/essais/"
   Write-Host "Factory installee. Prochain pas : ouvrir une session Vibe Code ici, puis /factory context."
+  Write-Host "✅ Projet prêt. L'usine poussera main à chaque /factory approve."
+  Write-Host "📌 Prochain pas (lier la sauvegarde) : gh repo create <mon-projet> --private --source . --remote origin --push"
 } else {
   # Cas 2 : projet existant : on copie le pattern (.vibe/ + factory/ + install.ps1) DANS le projet.
   foreach ($item in @(".vibe", "factory", "install.ps1")) {
