@@ -2,6 +2,8 @@
 
 Règle intangible : une forme entre au menu des ACTIVES uniquement après UNE mission de bout en bout validée. Les candidates ont un gabarit complet, elles attendent leur mission de validation. Les ébauches attendent leurs éclaireurs. Hors menu → ESCALADE.
 
+Un éclaireur peut installer un prérequis outillage manquant : annoncé avant le premier essai, exécuté sous l'approbation humaine de la session, toujours documenté dans une **fiche outillage** (commande exacte, versions obtenues, emplacements sur le disque). Refus d'approbation = ESCALADE, jamais contourné.
+
 ## ACTIVES
 
 ### script-python — v1 ✅ (validée en 2 missions)
