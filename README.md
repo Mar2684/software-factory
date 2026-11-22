@@ -18,6 +18,18 @@ Une factory installable : tu clones ce repo dans un dossier projet, tu ouvres un
 - **Racine (`README.md`)** : la doc **du LOGICIEL**. Créée à l'installation, complétée par l'usine à chaque merge (`/factory approve` y ajoute la section du job).
 - **`factory/README.md`** : la doc **de L'USINE** (ce fichier-ci, déplacé à l'installation). La boucle de production ne la touche JAMAIS : les docs de l'usine et du logiciel ne se mélangent pas.
 
+## Sauvegarde
+
+L'usine se sauvegarde elle-même : `/factory approve` pousse `main` vers le remote du projet après le merge. Sans remote, l'usine continue en local (le mémo de l'approve t'affiche la commande) ; un push en échec (auth/réseau) n'est JAMAIS bloquant, il repasse au merge suivant.
+
+Un projet né via `-Mode New` démarre SANS remote : l'installation détache volontairement l'origine du pattern, ton code ne poussera jamais vers ce repo public. Lie ton projet une seule fois à SON propre repo, depuis le dossier du projet :
+
+`gh repo create MonProjet --private --source . --remote origin --push`
+
+(ou, si le repo existe déjà sur GitHub : `git remote add origin https://github.com/<compte>/MonProjet.git` puis `git push -u origin main`)
+
+Un projet existant (`-Mode Existing`) a déjà son remote : rien à lier.
+
 ## Premier pas selon le cas
 
 - Projet EXISTANT : au premier `/factory`, le contexte absent est dressé AUTOMATIQUEMENT (tu peux aussi le lancer à la main : `/factory context`) — l'agent resumer dresse la carte du logiciel (factory/contexte/) pour les agents des jobs futurs.
@@ -36,7 +48,7 @@ Une factory installable : tu clones ce repo dans un dossier projet, tu ouvres un
 | `/factory <feature>` | Nouveau job : classe la forme, éclaire l'inconnu, spec, code, CI, revues → needs-human |
 | `/factory next` | Lance le premier élément non coché du backlog |
 | `/factory context` | (Re)dresse la carte du logiciel pour les agents (fichiers factory/contexte/) |
-| `/factory approve <job-id>` | Nettoie le chantier, merge la feature dans main (toi seul), CI post-merge, met à jour README (logiciel) et contexte |
+| `/factory approve <job-id>` | Nettoie le chantier, merge la feature dans main (toi seul), CI post-merge, met à jour README (logiciel) et contexte, sauvegarde (push main) |
 | `/factory rework <job-id> <note>` | Renvoie un job needs-human au coder avec ta note |
 | `/factory journal` | Rapport des stations et rounds depuis le journal |
 
