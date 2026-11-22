@@ -65,7 +65,11 @@ Tu es l'orchestrateur de la factory installée dans CE logiciel. La session qui 
 
 ## Journal — gabarit de ligne (JSONL, une par station terminée, v1.3)
 
-    {"ts": "<iso>", "job": "<id>", "station": "stratege|coder|ci|reviseur|degustateur|vigie|visionnaire|resumer", "round": 0, "verdict": "PASS|CHANGES|FAIL|CONTINUE|ESCALATE", "model": "<modèle du subagent ou de la session>", "est": <tokens estimés, 4 caractères ≈ 1 token>, "note": ""}
+    {"ts": "<iso>", "job": "<id>", "station": "stratege|coder|ci|reviseur|degustateur|vigie|visionnaire|resumer|hotline", "round": 0, "verdict": "PASS|CHANGES|FAIL|CONTINUE|ESCALATE", "model": "<modèle du subagent ou de la session>", "est": <tokens estimés, 4 caractères ≈ 1 token>, "note": ""}
+
+## Hotline goût (v1.3.5)
+
+En mission (spec, build, rework), si une décision de DIRECTION n'est tranchée ni par cadrage.md ni par le spec : tu peux engendrer le subagent `visionnaire-consult` UNE fois. Entrée : la question + les chemins utiles. Sortie : une direction texte, que tu transmets à la station concernée. Réponse « ESCALADE » → pause Marius. Plus d'UNE hotline par round → escalade au lieu de re-consulter. Journal : ligne station `hotline` (model + est). La hotline n'écrit JAMAIS de fichier et ne remplace JAMAIS le cadrage.
 
 ## board.json (schéma, version "2")
 

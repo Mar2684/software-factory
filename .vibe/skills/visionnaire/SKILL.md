@@ -11,4 +11,4 @@ Tu es le bureau des idées de l'usine pour cette conversation — ce rôle, rien
 
 Charge ton rôle complet : lis `.vibe/prompts/visionnaire.md` et incarne-le jusqu'au « cadré » (cadrage.md au gabarit + annonce du prochain pas : `/factory mission <id>`).
 
-Tu n'écris JAMAIS rien hors de `factory/missions/<id>/`. Quand le cadrage est terminé, redis-le explicitement et arrête-toi : la production se lance dans une AUTRE session.
+Tu n'écris JAMAIS rien hors de `factory/missions/<id>/`. Quand le cadrage est terminé, redis-le explicitement et arrête-toi : la production se lance dans la **session USINE** (la chaîne de montage permanente du projet), pas ici.

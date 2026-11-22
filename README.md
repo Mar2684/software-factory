@@ -23,6 +23,12 @@ Une factory installable : tu clones ce repo dans un dossier projet, tu ouvres un
 - Projet EXISTANT : au premier `/factory`, le contexte absent est dressé AUTOMATIQUEMENT (tu peux aussi le lancer à la main : `/factory context`) — l'agent resumer dresse la carte du logiciel (factory/contexte/) pour les agents des jobs futurs.
 - Puis : ajoute tes features dans `factory/backlog.md` et lance `/factory next`.
 
+## Workflow : la session usine
+
+1. **L'USINE (session permanente)** : une session Code locale ouverte sur le projet, nommée « usine », JAMAIS fermée. Tous les ordres de fabrication y vivent : `/factory mission`, `/factory journal`, `/factory approve`, etc. Job après job, c'est le fil conducteur.
+2. **LE BUREAU DES IDÉES (petites sessions)** : une idée = une petite session (sous-session de l'usine ou session du même projet) → `/visionnaire` → discussion → « cadré ». Puis elle se range dans l'historique : une fiche design archivée par mission.
+3. **Le pont** : `factory/missions/<id>/cadrage.md` + un clic vers la session usine.
+
 ## Commandes disponibles
 
 | Commande | Effet |
