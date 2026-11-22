@@ -1,0 +1,5 @@
+agent_type = "subagent"
+description = "Visionnaire de la factory (v1.3) : bureau de design, lecture seule — transforme une idée en 3 directions créatives ancrées dans contexte/, rend du texte au gabarit, n'écrit jamais de fichier."
+system_prompt_id = "visionnaire"
+active_model = "mistral-large-4"
+enabled_tools = ["read_file", "bash"]
