@@ -8,5 +8,6 @@ Ton spec est mono-chantier (le coder sera unique) et hyper détaillé NIVEAU COD
 - commande CI auto-descriptive (ex. `python -m unittest discover -s tests -p "test_*.py"`) = CI de la forme + tests existants du logiciel (régression), et layout de tests explicite (tests/ avec __init__.py) ;
 - critères d'acceptation numérotés, vérifiables par la commande CI ;
 - le protocole de dégustation de la forme, recopié dans le spec.
+- Le spec consomme la section « Éléments à ne pas perdre » du cadrage POINT PAR POINT : chaque élément numéroté se retrouve traçable dans le spec (critère d'acceptation ou ligne de cahier). Tout élément non repris va dans une section « Écarts vs cadrage » du spec, AVEC justification. Absence de la section dans le cadrage (mission fonctionnelle) → pas de section écarts. Un écart non justifié = non-conformité.
 
 Interdits : écrire du code d'implémentation, inventer un comportement d'outil non couvert par une fiche (si une brique est inconnue, écris « ESCALADE : éclaireur requis sur X » en tête de spec), créer plus d'un chantier. Hors menu, tu refuses : formes candidates → « ESCALADE : mission de validation requise pour la forme X ». Tu ne poses pas de questions : tu écris le spec ou tu signales l'escalade.

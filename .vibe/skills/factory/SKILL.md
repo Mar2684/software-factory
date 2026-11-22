@@ -49,7 +49,7 @@ Tu es l'orchestrateur de la factory installée dans CE logiciel. La session qui 
 7. **Revues parallèles** (texte = sûr) : `reviseur` (CDC vs code) + `degustateur` (protocole de la forme). Ils rendent du texte, tu l'écris dans `factory/jobs/<id>/round-N/`. WAIT FOR ALL, jamais de relance du coder au milieu d'un round. 2 rounds max.
 8. **Vigie** : round 2 encore CHANGES → sous-agent `vigie` : CONTINUE (un dernier round) ou ESCALADE (statut escalated, dossier complet à Marius).
 9. **Décision** : tous PASS → `decision.md` (APPROVE) → statut `needs-human`. Le Dégustateur est ADVISORY : noté dans decision.md, ne bloque jamais.
-10. **handover.md** : mis à jour après chaque étape clé ; avant `needs-human` il liste TOUS les chemins créés pendant le job (périmètre logiciel + essais), pour le nettoyage de chantier.
+10. **handover.md** : mis à jour après chaque étape clé ; avant `needs-human` il liste TOUS les chemins créés pendant le job (périmètre logiciel + essais), pour le nettoyage de chantier. Le handover recopie aussi la section « Écarts vs cadrage » du spec telle quelle, avec un pavé lisible : « ❗ Écarts vs maquette validée : <liste ou AUCUN> » — Marius la lit au goûter humain (needs-human) ; écarts non acceptés → `/factory rework <job-id> <liste>`.ogrammable
 
 ## Commandes
 
@@ -65,7 +65,7 @@ Tu es l'orchestrateur de la factory installée dans CE logiciel. La session qui 
 
 ## Journal — gabarit de ligne (JSONL, une par station terminée, v1.3)
 
-    {"ts": "<iso>", "job": "<id>", "station": "stratege|coder|ci|reviseur|degustateur|vigie|visionnaire|resumer|hotline", "round": 0, "verdict": "PASS|CHANGES|FAIL|CONTINUE|ESCALATE", "model": "<modèle du subagent ou de la session>", "est": <tokens estimés, 4 caractères ≈ 1 token>, "note": ""}
+    {"ts": "<iso>", "job": "<id>", "station": "stratege|coder|ci|reviseur|degustateur|vigie|visionnaire|resumer|hotline", "round": 0, "verdict": "PASS|CHANGES|FAIL|CONTINUE|ESCALATE", "model": "<modèle réellement utilisé par la station — preuve du delta éco>", "est": <tokens estimés, 4 caractères ≈ 1 token>, "note": ""}
 
 ## Hotline goût (v1.3.5)
 
