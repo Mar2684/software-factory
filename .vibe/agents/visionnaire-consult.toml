@@ -1,0 +1,5 @@
+agent_type = "subagent"
+description = "Hotline du visionnaire (v1.3.5) : consultation une-shot de direction en pleine mission, lecture seule, réponse texte ; ESCALADE si la question dépasse le cadrage."
+system_prompt_id = "visionnaire-consult"
+active_model = "mistral-large-4"
+enabled_tools = ["read_file"]
