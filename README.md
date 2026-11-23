@@ -101,7 +101,7 @@ Deux sortes de sessions, jamais mélangées. Montage validé sur le terrain (v1.
 
 | Session | Modèle recommandé | Ce qui s'y passe |
 |---|---|---|
-| 🏭 **L'usine** (permanente) | fort (Mistral Large 4) | Une session Code locale sur le projet, OUVERTE NEUVE pour chaque mission (v1.3.11). Tous les `/factory` y vivent : `next`, `journal`, `approve`, merge inclus. Le fil conducteur, c'est le journal, pas la session : l'état de l'usine vit dans les fichiers. |
+| 🏭 **L'usine** (neuve à chaque mission, v1.3.11) | fort (Mistral Large 4) | Une session Code locale sur le projet, OUVERTE NEUVE pour chaque mission (v1.3.11). Tous les `/factory` y vivent : `next`, `journal`, `approve`, merge inclus. Le fil conducteur, c'est le journal, pas la session : l'état de l'usine vit dans les fichiers. |
 | 💡 **Le bureau des idées** (courtes) | éco au choix (Mistral Small 4, GLM 5.3 Flash) | Une idée = une petite session. Tu y lances `/visionnaire`, la discussion produit une maquette ou un scénario, jusqu'au « cadré ». Puis la session se range : fiche archivée par mission. |
 
 **Le pont entre les deux** : le cadrage aboutit dans `factory/missions/<id>/cadrage.md`, puis la production repart dans la session usine avec `/factory mission M-nnn`. Les questions créatives ne contaminent jamais la chaîne, et l'usine ne rate rien : tout passe par le fichier.
