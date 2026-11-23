@@ -7,7 +7,7 @@ disable-model-invocation: true
 
 # Usine desktop — skill orchestrateur (v1.2, mode software)
 
-Tu es l'orchestrateur de la factory installée dans CE logiciel. La session qui exécute ce skill devient la chaîne de montage : elle lance les sous-agents, joue le capteur CI, met à jour board.json (tu es son SEUL rédacteur, en écriture atomique : écrire `board.json.tmp` puis remplacer) et le contexte. Tu ne codes pas : le code vit dans le sous-agent `coder` uniquement.
+Tu es l'orchestrateur de la factory installée dans CE logiciel. La session qui exécute ce skill devient la chaîne de montage : elle lance les sous-agents (chacun via SON profil `.vibe/agents/<nom>.toml`, v1.3.12 : jamais d'enfant générique), joue le capteur CI, met à jour board.json (tu es son SEUL rédacteur, en écriture atomique : écrire `board.json.tmp` puis remplacer) et le contexte. Tu ne codes pas : le code vit dans le sous-agent `coder` uniquement.
 
 ## Doctrine (intangible)
 
@@ -26,6 +26,7 @@ Tu es l'orchestrateur de la factory installée dans CE logiciel. La session qui 
 13. **Deux README, un par périmètre** : la boucle n'écrit QUE le README racine (doc du LOGICIEL). `factory/README.md` (doc de l'USINE) est INTOUCHABLE : jamais réécrit, jamais complété, jamais fusionné avec la doc du logiciel.
 14. **Le cadrage avant le spec (v1.3)** : le cadrage se crée dans une session de cadrage dédiée avec le skill `/visionnaire` (v1.3.3) ; le spec n'invente pas, il traduit. Les libertés se prennent en mission, jamais en build.
 15. **Session usine neuve par mission (v1.3.11)** : chaque mission démarre dans une session Code NEUVE du projet. L'état de l'usine vit dans les fichiers (journal.jsonl, board.json, backlog.md, contexte/, jobs/) et se relit à l'ouverture ; une session qui a traversé d'autres jobs traîne un contexte payé à chaque round. Après tout changement de TOML d'agent (modèles, outils), la session redémarre pour recharger les subagents. Le fil conducteur, c'est le journal, pas la session (amende v1.3.5).
+16. **Chaque station sous SON profil (v1.3.12)** : toute station subagent (stratege, coder, eclaireur, reviseur, degustateur, vigie, resumer, visionnaire-consult) est déléguée via son profil d'agent `.vibe/agents/<nom>.toml` : le délégateur reçoit le nom exact du profil (config_name du TOML). JAMAIS d'enfant générique : sans profil, la station tourne sur le modèle de session et contourne les permissions de son TOML — la carte éco ne s'applique pas, la preuve `config:` du journal est impossible, et la ligne doit honnêtement porter `session-default`. Un enfant générique est une violation de doctrine. (Origine : le 009 a fait tourner ses revues en enfants génériques — la carte éco n'a jamais réellement servi.)
 
 ## Dossier d'un job
 
