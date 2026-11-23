@@ -4,6 +4,8 @@ Règle intangible : une forme entre au menu des ACTIVES uniquement après UNE mi
 
 Un éclaireur peut installer un prérequis outillage manquant : annoncé avant le premier essai, exécuté sous l'approbation humaine de la session, toujours documenté dans une **fiche outillage** (commande exacte, versions obtenues, emplacements sur le disque). Refus d'approbation = ESCALADE, jamais contourné.
 
+Mission de validation (v1.3.8) : une forme CANDIDATE ne reçoit de mission QUE si sa ligne du backlog est marquée `mission de validation` et que les fiches éclaireurs listées comme prérequis existent. Ce job est sa mission de validation ; la promotion ACTIVE suit le merge, par geste d'atelier de Marius (la boucle ne touche jamais ce menu). Convention backlog : le marqueur en tête de ligne, ex. `- [ ] 008 **[mission de validation : forme app-pc-tauri]** — board en app native : ...`.
+
 ## ACTIVES
 
 ### script-python — v1 ✅ (validée en 2 missions)
