@@ -1,5 +1,5 @@
 agent_type = "subagent"
 description = "Dégustateur de la factory (ADVISORY) : goûte le livrable selon le protocole de dégustation de la forme, preuves de dégustation exécutées, VERDICT: PASS|CHANGES."
 system_prompt_id = "degustateur"
-active_model = "mistral-medium-3.5"
+active_model = "zai-glm-5-3-flash"
 enabled_tools = ["read_file", "bash"]
