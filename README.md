@@ -97,11 +97,11 @@ Un projet existant (`-Mode Existing`) a déjà son remote : rien à lier.
 
 ## 🧭 Le quotidien : tes sessions
 
-Deux sortes de sessions, jamais mélangées. C'est le montage validé sur le terrain (v1.3.5).
+Deux sortes de sessions, jamais mélangées. Montage validé sur le terrain (v1.3.5), sessions usines neuves à chaque mission depuis v1.3.11.
 
 | Session | Modèle recommandé | Ce qui s'y passe |
 |---|---|---|
-| 🏭 **L'usine** (permanente) | fort (Mistral Large 4) | Une session Code locale sur le projet, jamais fermée. Tous les `/factory` y vivent : `next`, `journal`, `approve`, merge inclus. C'est le fil conducteur de tout le travail. |
+| 🏭 **L'usine** (permanente) | fort (Mistral Large 4) | Une session Code locale sur le projet, OUVERTE NEUVE pour chaque mission (v1.3.11). Tous les `/factory` y vivent : `next`, `journal`, `approve`, merge inclus. Le fil conducteur, c'est le journal, pas la session : l'état de l'usine vit dans les fichiers. |
 | 💡 **Le bureau des idées** (courtes) | éco au choix (Mistral Small 4, GLM 5.3 Flash) | Une idée = une petite session. Tu y lances `/visionnaire`, la discussion produit une maquette ou un scénario, jusqu'au « cadré ». Puis la session se range : fiche archivée par mission. |
 
 **Le pont entre les deux** : le cadrage aboutit dans `factory/missions/<id>/cadrage.md`, puis la production repart dans la session usine avec `/factory mission M-nnn`. Les questions créatives ne contaminent jamais la chaîne, et l'usine ne rate rien : tout passe par le fichier.
@@ -119,14 +119,14 @@ Deux sortes de sessions, jamais mélangées. C'est le montage validé sur le ter
 | **Éclaireurs** | Explorent les briques inconnues et produisent des fiches à PREUVES EXÉCUTÉES. Depuis v1.3.6, ils peuvent installer l'outillage manquant : annoncé, approuvé, fiché. |
 | **Coder** | UN seul coder. Une branche `factory/<id>`, un fichier `build.md` comme journal du chantier. |
 | **CI capteur** | Déterministe, 0 token : CI de la forme + tests du logiciel (régression). « Ran 0 tests » = échec. |
-| **Reviseur** | Relit le spec contre le livrable ET le cadrage : un écart non justifié = CHANGES. |
+| **Reviseur** | Relit le spec contre le livrable, le cadrage ET le design (v1.3.9) : un écart non justifié = CHANGES. |
 | **Dégustateur** | Goûte le livrable en l'exécutant pour de vrai. |
 | **Vigie** | Verdict CONTINUE/ESCALADE quand ça stagne. |
 | **Hotline goût** | `visionnaire-consult`, consultable UNE fois par round sur une question de direction : une direction, 30 lignes max. |
 
 La chaîne s'arrête toujours à `needs-human` : le dossier de mission t'attend avec le handover, tu goûtes, puis `rework` ou `approve`. Le merge est à toi, personne d'autre ne l'a le droit.
 
-**La carte éco** (v1.3.4) : reviseur, dégustateur et resumer tournent sur un petit modèle (Mistral Small 4) via les TOML. La preuve que la carte est branchée vit dans le journal : champ `model` rempli avec le modèle réel, plus de « session-default ». Si une station éco rate la qualité, on remonte UNE station au fort à la fois.
+**La carte éco** (v1.3.4 ; éco = Z.ai GLM 5.3 Flash depuis v1.3.10) : reviseur, dégustateur et resumer tournent sur le petit modèle via leurs TOML, chaque station déléguée SOUS SON profil (doctrine 16, v1.3.12 : jamais d'enfant générique). La preuve vit dans le journal : champ `model` = `config:<modèle du TOML>` (v1.3.11) ; `session-default` n'y est honnête que pour l'approve (la session orchestratrice elle-même). Si une station éco rate la qualité, on remonte UNE station au fort à la fois.
 
 ## ⌨️ Commandes
 
@@ -149,7 +149,7 @@ Le menu est **fermé** : rien n'entre ACTIF sans une mission de validation réus
 |---|---|---|
 | `script-python` | ✅ ACTIVE | pong + carnet de dépenses CLI |
 | `web-react` | ✅ ACTIVE | board d'usine (React, Vite, Vitest, 75 tests) |
-| `app-pc-tauri` | 🔶 ébauche | mission 008 en préparation (fenêtre native autour du board) |
+| `app-pc-tauri` | ✅ ACTIVE | fenêtre native autour du board (validée par le job 008, merge b04bfef, 23/11) |
 | `android-apk` | 🔶 ébauche | aucune mission avant fiches gradle/SDK |
 
 Faire évoluer le menu (nouvelle forme, nouvelle ligne CI) est un **geste d'atelier** : tu l'écris à la main dans `factory/formes/menu.md`, la boucle n'y touche jamais.
@@ -182,7 +182,7 @@ Chaque tip ci-dessous a été payé par un vrai incident. Ils valent de l'argent
 - **Un serveur `http.server` oublié verrouille les suppressions.** Processus sans fenêtre, ancré dans le dossier, Windows refuse de supprimer. Coupe-le avant de nettoyer un chantier.
 - **Les dossiers lourds se suppriment en local.** Une grosse suppression pilotée à distance peut geler la machine plusieurs minutes : PowerShell local d'abord.
 - **`git remote -v` tôt dans la vie d'un projet.** Le mode New détache volontairement l'origine du pattern ; lie ton repo une fois, puis l'usine s'autode sauvegarde à chaque approve.
-- **Le journal est un capteur, pas un carnet.** Champ `model` rempli = preuve que la carte éco tourne ; si tu y lis « session-default », elle n'est pas branchée.
+- **Le journal est un capteur, pas un carnet.** Champ `model` = `config:<modèle du TOML>` depuis v1.3.11 (session-default n'est honnête que pour l'approve) ; une revue éco qui y lit session-default = profil non invoqué, violation de la doctrine 16.
 - **Les sessions ne se mélangent jamais.** Cadrage d'un côté, production de l'autre ; le pont, c'est le fichier `cadrage.md`.
 - **Les évolutions de l'usine sont un geste d'atelier.** Menu des formes, skills, prompts : tu les modifies à la main, la boucle n'y touche pas.
 
@@ -232,6 +232,11 @@ Depuis le dossier `factory/`, puis ouvre <http://localhost:8123/dashboard.html> 
 | v1.3.5 | 22/11 | Session usine permanente + hotline goût en mission |
 | v1.3.6 | 22/11 | L'éclaireur outilleur : annoncé, approuvé, fiché |
 | v1.3.7 | 22/11 | L'usine se sauvegarde : push automatique à l'approve |
+| v1.3.8 | 23/11 | Porte « mission de validation » d'une forme CANDIDATE (marqueur backlog + fiches, puis promotion ACTIVE au merge) |
+| v1.3.9 | 23/11 | Design par défaut : section Design obligatoire au spec pour tout nouvel élément visible, charte vivante factory/contexte/design.md |
+| v1.3.10 | 23/11 | Carte éco réellement branchée : Z.ai GLM 5.3 Flash sur reviseur/dégustateur/resumer (Medium 3.5 déprécié) |
+| v1.3.11 | 23/11 | L'usine au régime : spec maigre (contrat, pas code), CI adaptatif (Rust non touché = pas de tauri build), preuve config: au journal, session usine neuve par mission |
+| v1.3.12 | 23/11 | Chaque station déléguée sous SON profil d'agent : fin des enfants génériques |
 
 ---
 
