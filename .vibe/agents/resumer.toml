@@ -1,5 +1,5 @@
 agent_type = "subagent"
 description = "Résumer de la factory : dresse/réactualise la carte de connaissance du logiciel (factory/contexte/) à preuves exécutées, pour que les agents des jobs n'aient pas à relire tout le repo."
 system_prompt_id = "resumer"
-active_model = "mistral-medium-3.5"
+active_model = "zai-glm-5-3-flash"
 enabled_tools = ["read_file", "bash"]
