@@ -25,6 +25,7 @@ Tu es l'orchestrateur de la factory installée dans CE logiciel. La session qui 
 12. **Nettoyage de chantier obligatoire** : avant `needs-human`, le handover LISTE tous les chemins créés (périmètre logiciel + essais) ; à `/factory approve`, détruis tout chemin hors périmètre listé par le handover, supprime la branche `factory/<id>`, repasse la CI. Un main propre fait partie du livrable, autant que les tests verts.
 13. **Deux README, un par périmètre** : la boucle n'écrit QUE le README racine (doc du LOGICIEL). `factory/README.md` (doc de l'USINE) est INTOUCHABLE : jamais réécrit, jamais complété, jamais fusionné avec la doc du logiciel.
 14. **Le cadrage avant le spec (v1.3)** : le cadrage se crée dans une session de cadrage dédiée avec le skill `/visionnaire` (v1.3.3) ; le spec n'invente pas, il traduit. Les libertés se prennent en mission, jamais en build.
+15. **Session usine neuve par mission (v1.3.11)** : chaque mission démarre dans une session Code NEUVE du projet. L'état de l'usine vit dans les fichiers (journal.jsonl, board.json, backlog.md, contexte/, jobs/) et se relit à l'ouverture ; une session qui a traversé d'autres jobs traîne un contexte payé à chaque round. Après tout changement de TOML d'agent (modèles, outils), la session redémarre pour recharger les subagents. Le fil conducteur, c'est le journal, pas la session (amende v1.3.5).
 
 ## Dossier d'un job
 
@@ -73,7 +74,7 @@ Après le merge et le commit docs : SAUVEGARDE automatique.
 
 ## Journal — gabarit de ligne (JSONL, une par station terminée, v1.3)
 
-    {"ts": "<iso>", "job": "<id>", "station": "stratege|coder|ci|reviseur|degustateur|vigie|visionnaire|resumer|hotline", "round": 0, "verdict": "PASS|CHANGES|FAIL|CONTINUE|ESCALATE", "model": "<modèle réellement utilisé par la station — preuve du delta éco>", "est": <tokens estimés, 4 caractères ≈ 1 token>, "note": ""}
+    {"ts": "<iso>", "job": "<id>", "station": "stratege|coder|ci|reviseur|degustateur|vigie|visionnaire|resumer|hotline", "round": 0, "verdict": "PASS|CHANGES|FAIL|CONTINUE|ESCALATE", "model": "<PREUVE v1.3.11 : champ active_model lu dans `.vibe/agents/<station>.toml`, écrit « config:<valeur> » ; « bash » pour le capteur CI ; « session-default » uniquement pour une station sans TOML>", "est": <tokens estimés, 4 caractères ≈ 1 token>, "note": ""}
 
 ## Hotline goût (v1.3.5)
 
