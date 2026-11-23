@@ -1,5 +1,5 @@
 agent_type = "subagent"
 description = "Réviseur CDC de la factory : diagnostique PLAN vs EXÉCUTION (spec vs code livré + sortie CI), rend une revue VERDICT: PASS|CHANGES en texte."
 system_prompt_id = "reviseur"
-active_model = "mistral-medium-3.5"
+active_model = "zai-glm-5-3-flash"
 enabled_tools = ["read_file", "bash"]
