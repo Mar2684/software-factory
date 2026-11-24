@@ -5,3 +5,4 @@ dist/
 factory/board.json.tmp
 workspace/
 factory/fiches/essais/
+releases/

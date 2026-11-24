@@ -5,6 +5,7 @@ Règle intangible : une forme entre au menu des ACTIVES uniquement après UNE mi
 Un éclaireur peut installer un prérequis outillage manquant : annoncé avant le premier essai, exécuté sous l'approbation humaine de la session, toujours documenté dans une **fiche outillage** (commande exacte, versions obtenues, emplacements sur le disque). Refus d'approbation = ESCALADE, jamais contourné.
 
 Mission de validation (v1.3.8) : une forme CANDIDATE ne reçoit de mission QUE si sa ligne du backlog est marquée `mission de validation` et que les fiches éclaireurs listées comme prérequis existent. Ce job est sa mission de validation ; la promotion ACTIVE suit le merge, par geste d'atelier de Marius (la boucle ne touche jamais ce menu). Convention backlog : le marqueur en tête de ligne, ex. `- [ ] 008 **[mission de validation : forme app-pc-tauri]** — board en app native : ...`.
+Artefact d'usage (v1.3.13, doctrine 17) : chaque forme définit ci-dessous son ARTEFACT D'USAGE : ce que le `/factory approve` épargne dans `releases/<job-id>/` (gitignoré) AVANT le nettoyage de chantier, pour que l'utilisateur accède toujours au logiciel et le lance, même après l'approve.
 
 ## ACTIVES
 
@@ -15,6 +16,7 @@ Mission de validation (v1.3.8) : une forme CANDIDATE ne reçoit de mission QUE s
 - Revues : reviseur (toujours), degustateur (protocole ci-dessous).
 - Dégustation : script exécuté de bout en bout ; GUI = simulation de partie automatisée.
 - Enveloppe : 1-3 rounds CI + 1 round de revue.
+- Artefact d'usage (v1.3.13) : le code vit au repo (src/, tests/) ; la section README du job porte le mémo de lancement exact (ex. python ...\src\<script>.py), rien à épargner.
 
 ## CANDIDATES (gabarit complet, ATTENDENT une mission de validation)
 
@@ -25,6 +27,7 @@ Mission de validation (v1.3.8) : une forme CANDIDATE ne reçoit de mission QUE s
 - Revues : reviseur, degustateur = tests de composants headless (jsdom) EXÉCUTÉS + build OK ; la page doit s'afficher via pnpm dev pour l'humain en fin de dégustation (cette note est dans la section réservée à l'humain).
 - Dégustation majeure : interactions simulées (clic, saisie) avec assertions sur l'état rendu.
 - Enveloppe : 2-4 rounds CI — l'installation pnpm/node est un territoire à fiche d'éclaireur AVANT validation.
+- Artefact d'usage (v1.3.13) : copie du dossier `dist/` du build web dans `releases/<job-id>/` ; lancement selon le mémo exact de la section README du job (`pnpm dev`, ou la vitrine du projet si elle existe).
 
 ## ÉBAUCHES (prérequis lourds, PAS de mission avant fiches éclaireurs)
 
@@ -34,6 +37,7 @@ Mission de validation (v1.3.8) : une forme CANDIDATE ne reçoit de mission QUE s
 - CI (prévue) : pnpm vitest run && cargo test && pnpm tauri build.
 - Dégustation (prévue) : build produit un artefact + tests de la couche Rust.
 - Enveloppe : NON estimée (territoire inconnu jusqu'aux fiches).
+- Artefact d'usage (prévu, v1.3.13) : l'app .exe du build (`src-tauri/target/release/*.exe`) + l'installateur NSIS (`src-tauri/target/release/bundle/nsis/*-setup.exe`) copiés dans `releases/<job-id>/` avant le nettoyage.
 
 ### android-apk — v0 (ébauche)
 - Vision : APK Android d'une activité unique (noyau partagé avec la web app si possible, coquille Kotlin/Gradle).
@@ -41,3 +45,4 @@ Mission de validation (v1.3.8) : une forme CANDIDATE ne reçoit de mission QUE s
 - CI (prévue) : ./gradlew test + ./gradlew assembleDebug.
 - Dégustation (prévue) : assembleDebug produit un .apk ; exécution sur émulateur EN OPTION (territoire éclaireur).
 - Enveloppe : NON estimée — cette forme est la plus coûteuse en outillage, ne pas ouvrir avant web-react ET tauri.
+- Artefact d'usage (prévu, v1.3.13) : le .apk de `assembleDebug` copié dans `releases/<job-id>/`.
