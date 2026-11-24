@@ -21,6 +21,7 @@ Cartouche complet (v1.3.17, doctrine 18) : chaque forme ci-dessous est un CARTOU
 - Enveloppe : 1-3 rounds CI + 1 round de revue.
 - Artefact d'usage (v1.3.13) : le code vit au repo (src/, tests/) ; la section README du job porte le mémo de lancement exact (ex. python ...\src\<script>.py), rien à épargner.
 - Test humain (v1.3.15) : lancer depuis la racine du projet avec la commande exacte du mémo ; rien à construire, la session vérifie d'abord que la commande sort proprement.
+- Vitrine de revue UX (v1.3.16) : aucune ; jamais de revue UX pour cette forme (le déclencheur ne s'allume pas : aucun fichier interface).
 
 ## CANDIDATES (gabarit complet, ATTENDENT une mission de validation)
 
