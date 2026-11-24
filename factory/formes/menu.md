@@ -5,6 +5,7 @@ Règle intangible : une forme entre au menu des ACTIVES uniquement après UNE mi
 Un éclaireur peut installer un prérequis outillage manquant : annoncé avant le premier essai, exécuté sous l'approbation humaine de la session, toujours documenté dans une **fiche outillage** (commande exacte, versions obtenues, emplacements sur le disque). Refus d'approbation = ESCALADE, jamais contourné.
 
 Mission de validation (v1.3.8) : une forme CANDIDATE ne reçoit de mission QUE si sa ligne du backlog est marquée `mission de validation` et que les fiches éclaireurs listées comme prérequis existent. Ce job est sa mission de validation ; la promotion ACTIVE suit le merge, par geste d'atelier de Marius (la boucle ne touche jamais ce menu). Convention backlog : le marqueur en tête de ligne, ex. `- [ ] 008 **[mission de validation : forme app-pc-tauri]** — board en app native : ...`.
+Vitrine de revue (v1.3.16) : toute forme avec interface définit sa **vitrine de revue** (comment reviewer-ux accède au rendu réel du job, sur la branche du job) et la **taille de fenêtre STANDARD** des mesures : 1280×720 par défaut (le spec peut imposer des tailles additionnelles, la standard reste le défaut). web-react : dev server de la branche (`pnpm dev`). app-pc-tauri : vitrine dimensionnelle = noyau web de la branche via agent-browser ; revue sémantique de l'app installée = chantier éclaireur séparé via agent-desktop (fiche agent-desktop.md). script-python : aucune vitrine, jamais de revue UX. android-apk (ébauche) : à définir à la promotion candidate.
 Artefact d'usage (v1.3.13, doctrine 17) : chaque forme définit ci-dessous son ARTEFACT D'USAGE : ce que le `/factory approve` épargne dans `releases/<job-id>/` (gitignoré) AVANT le nettoyage de chantier, pour que l'utilisateur accède toujours au logiciel et le lance, même après l'approve. Amende v1.3.15 : chaque forme définit aussi sa ligne « Test humain » : la recette exacte de lancement du test, remise au goûter humain au needs-human dans la section « Tester maintenant ». Un needs-human sans cette recette est une violation de doctrine.
 
 ## ACTIVES
@@ -28,6 +29,7 @@ Artefact d'usage (v1.3.13, doctrine 17) : chaque forme définit ci-dessous son A
 - Revues : reviseur, degustateur = tests de composants headless (jsdom) EXÉCUTÉS + build OK ; la page doit s'afficher via pnpm dev pour l'humain en fin de dégustation (cette note est dans la section réservée à l'humain).
 - Dégustation majeure : interactions simulées (clic, saisie) avec assertions sur l'état rendu.
 - Enveloppe : 2-4 rounds CI — l'installation pnpm/node est un territoire à fiche d'éclaireur AVANT validation.
+- Vitrine de revue UX (v1.3.16) : dev server de la branche (`pnpm dev` ; le serveur EST la branche), fenêtre standard 1280×720.
 - Artefact d'usage (v1.3.13) : copie du dossier `dist/` du build web dans `releases/<job-id>/` ; lancement selon le mémo exact de la section README du job (`pnpm dev`, ou la vitrine du projet si elle existe).
 - Test humain (v1.3.15) : `pnpm dev` depuis la racine (le HEAD est sur la branche du job), ouvrir l'URL affichée (ex. http://localhost:5173) ; arrêt : Ctrl+C. La vitrine déployée du projet ne reflète PAS la branche du job : le dev server reste la recette de test du needs-human.
 
@@ -39,6 +41,7 @@ Artefact d'usage (v1.3.13, doctrine 17) : chaque forme définit ci-dessous son A
 - CI (prévue) : pnpm vitest run && cargo test && pnpm tauri build.
 - Dégustation (prévue) : build produit un artefact + tests de la couche Rust.
 - Enveloppe : NON estimée (territoire inconnu jusqu'aux fiches).
+- Vitrine de revue UX (v1.3.16) : dimensionnelle = noyau web de la branche via agent-browser (fenêtre standard 1280×720) ; sémantique de l'app installée = chantier éclaireur séparé via agent-desktop.
 - Artefact d'usage (prévu, v1.3.13) : l'app .exe du build (`src-tauri/target/release/*.exe`) + l'installateur NSIS (`src-tauri/target/release/bundle/nsis/*-setup.exe`) copiés dans `releases/<job-id>/` avant le nettoyage.
 - Test humain (prévu, v1.3.15) : build sur la branche du job (`pnpm tauri build`, environ 36 s) puis double-clic sur `src-tauri\target\release\<app>.exe` (ou installation via le NSIS du bundle) ; l'app directe suffit au test.
 

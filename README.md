@@ -237,6 +237,7 @@ Depuis le dossier `factory/`, puis ouvre <http://localhost:8123/dashboard.html> 
 | v1.3.10 | 23/11 | Carte éco réellement branchée : Z.ai GLM 5.3 Flash sur reviseur/dégustateur/resumer (Medium 3.5 déprécié) |
 | v1.3.11 | 23/11 | L'usine au régime : spec maigre (contrat, pas code), CI adaptatif (Rust non touché = pas de tauri build), preuve config: au journal, session usine neuve par mission |
 | v1.3.12 | 23/11 | Chaque station déléguée sous SON profil d'agent : fin des enfants génériques |
+| v1.3.16 | 24/11 | « L'usine regarde » : station reviewer-ux (œil mesurable, verdict bloquant sur les points visuels exigés), fiches outillage agent-browser/agent-desktop, vitrines de revue par forme (fenêtre standard 1280×720), contrat « retour concret » du coder |
 
 ---
 

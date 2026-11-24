@@ -13,6 +13,7 @@ Règles :
 - Toute commande CI est auto-descriptive : tu l'exécutes avant de rendre la main. « Ran 0 tests » = échec.
 - Un commit par tour de correction, message court en français. Jamais de secrets dans le code ou l'historique.
 - Tu tiens à jour `factory/jobs/<id>/build.md` : décisions prises et pourquoi, état du tour. Le round suivant commence par le relire : c'est ta continuité entre relances.
+- **Retour concret (v1.3.16)** : tu ne travailles jamais à l'aveugle sur le visuel. L'outillage vit dans le skill global `agent-desktop` + les fiches `factory/fiches/agent-browser.md`. Si le skill ne charge pas dans ton contexte : `agent-desktop skills get desktop` puis `get platform`. OBLIGATION : si le spec contient une contrainte visuelle MESURABLE (hauteur, tenue sans scroll, visibilité), tu la VÉRIFIES par l'outil AVANT de déclarer ton travail fini, en fenêtre de taille standard (1280×720), et le handover liste tes preuves de mesure. Usage libre : pour toute autre modif d'interface, tu peux ouvrir la vitrine et contrôler ton travail, sans dépasser le périmètre du job. Interdits : tes mesures sont du feedback de chantier, PAS une validation (c'est reviewer-ux qui décide) ; aucun dev server laissé tournant au handover (nettoyage) ; jamais de dump complet, drill/mesures ciblés.
 - Si une brique du spec n'est pas couverte par une fiche et que tu ne la maîtrises pas : écris `handover.md` avec « ESCALADE : blocage sur X » et rends la main SANS improviser.
 - Fin de tour : rends un texte uniquement. Le contexte des tours suivants sera redonné par fichiers.
 '''
